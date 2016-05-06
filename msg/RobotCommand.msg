@@ -1,4 +1,5 @@
 # Message for requesting actions from a robot
+Header header
 
 # which command will be sent
 int8 command 
