@@ -11,4 +11,5 @@ string properties
 
 # Commands
 int8 SLEEP = 0
-int8 DO = 1
+int8 WAKEUP = 1
+int8 DO = 2
