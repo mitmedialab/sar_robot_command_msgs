@@ -13,7 +13,10 @@ actions/behaviors for the robot to do.
 - 0 SLEEP
     - no properties (properties = null)
 
-- 1 DO
+- 1 WAKEUP
+    - no properties
+
+- 2 DO
     - string containing text for the robot to say and/or actions/behaviors for
       the robot to do before, during, or after speaking (or instead of
       speaking)
