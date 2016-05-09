@@ -44,3 +44,17 @@ or
 `"<smile>"`
 
 TODO: Define the exact format, provide a list of optional flags.
+
+## RobotState
+
+The RobotState message definition includes several flags that can be sent back
+by a robot. These flags give status information about the robot's current
+activities.
+
+- doing action
+    - True when the robot is currently performing an animation or behavior
+
+- is playing sound
+    - True when the robot is currently playing back sound
+
+TODO: Define additional status flags that may be useful.
