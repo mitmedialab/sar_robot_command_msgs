@@ -4,9 +4,13 @@ Header header
 # which command will be sent
 int8 command 
 
+# some robots require DO commands to be tagged with a unique ID 
+# leave empty if no unique ID is needed
+string id
+
 # properties of command, such as:
 #   string containing speech to play and actions to do
-#   null if no extra properties needed
+#   empty if no extra properties needed
 string properties
 
 # Commands
