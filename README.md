@@ -5,13 +5,22 @@ robots.
 
 ## RobotCommand
 
-The RobotCommand message definition includes constants for the different
-commands that can be sent to a robot. Some commands must be accompanied by a
-set of properties, such as a string containing text for the robot to say and
-actions/behaviors for the robot to do.
+The RobotCommand message definition includes a standard ROS message header and
+the command to send. Some commands, such as DO, must be accompanied by a set of
+properties, such as a string containing text for the robot to say and
+actions/behaviors for the robot to do. 
+
+For some robots, DO commands must be also tagged with a unique ID, which should
+be put in the "id" field. Note that RobotCommand messages do not check nor
+ensure that anything placed in the "id" field is in fact unique.
+
+If a command does not require properties or an ID, set these fields as empty strings.
+
+A list of constants is included for the different commands
+that can be sent to a robot. These are: 
 
 - 0 SLEEP
-    - no properties (properties = null)
+    - no properties (properties = empty string)
 
 - 1 WAKEUP
     - no properties
@@ -20,6 +29,7 @@ actions/behaviors for the robot to do.
     - string containing text for the robot to say and/or actions/behaviors for
       the robot to do before, during, or after speaking (or instead of
       speaking)
+
 
 ### Details about the DO command
 
