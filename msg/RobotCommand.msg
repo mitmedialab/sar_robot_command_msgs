@@ -8,6 +8,10 @@ int8 command
 # leave empty if no unique ID is needed
 string id
 
+# set "true" if this command should interrupt and replace any command
+# currently running on the robot
+bool interrupt
+
 # properties of command, such as:
 #   string containing speech to play and actions to do
 #   empty if no extra properties needed

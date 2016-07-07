@@ -5,16 +5,22 @@ robots.
 
 ## RobotCommand
 
-The RobotCommand message definition includes a standard ROS message header and
-the command to send. Some commands, such as DO, must be accompanied by a set of
-properties, such as a string containing text for the robot to say and
-actions/behaviors for the robot to do. 
+The RobotCommand message definition includes a standard ROS message `header`
+and the `command` to send. Some commands, such as `DO`, must be accompanied by
+a set of `properties`, such as a string containing text for the robot to say
+and actions/behaviors for the robot to do.
 
-For some robots, DO commands must be also tagged with a unique ID, which should
-be put in the "id" field. Note that RobotCommand messages do not check nor
-ensure that anything placed in the "id" field is in fact unique.
+For some robots, `DO` commands must be also tagged with a unique ID, which
+should be put in the `id` field. Note that RobotCommand messages do not check
+nor ensure that anything placed in the "id" field is in fact unique.
 
-If a command does not require properties or an ID, set these fields as empty strings.
+If a command does not require properties or an ID, set these fields as empty
+strings.
+
+A command may also be tagged to interrupt any previously running behaviors on
+the robot using the `interrupt` field. It is up to the specific robot platform
+to monitor this field and interrupt or replace any command that was already
+running on the robot.
 
 A list of constants is included for the different commands that can be sent to
 a robot. These are: 
@@ -32,7 +38,9 @@ a robot. These are:
 
 ### Details about the DO command
 
-DO commands should be formatted as a string of text containing the words that
+#### General format
+
+`DO` commands should be formatted as a string of text containing the words that
 the robot should say, with any actions the robot should be instructed to do
 embedded in the string in angle brackets. Here is an example:
 
@@ -43,12 +51,6 @@ to smile after saying "Hi", and to wave at the end of the sentence:
 
 `"Hi <smile> I am a robot! <wave>"`
 
-The action commands may contain additional optional flags, such as whether the
-action should be blocking or non-blocking, or where to direct the behavior,
-next to each action, e.g.:
-
-`"Hi <smile,nb,at-person> I am a robot! <wave,b>"`
-
 A message string can contain only speech or only actions, e.g.:
 
 `"Hi I am a robot!"`
@@ -57,10 +59,41 @@ or
 
 `"<smile>"`
 
-Note that this node does not track whether actions or flags you provide in a
+#### Action flags
+
+The action commands may contain additional optional flags, e.g.:
+
+`"Hi <smile,flag1> I am a robot! <wave,flag2>"`
+
+One use of these flags would be to indicate that specific robot animations or
+actions, such as a "smile" or a "happy bounce", should be blocking or
+non-blocking. For example, given the `DO` command `"Hi <happy bounce> I am a
+robot!"`, if you tagged the action command as blocking, e.g., 
+
+`"Hi <happy bounce,b> I am a robot!"`
+
+then the robot would say "Hi", do a happy bounce, then say "I am a robot!".
+
+If you tagged the action as non-blocking, e.g., 
+
+`"Hi <happy bounce, nb> I am a robot!"`
+
+then the robot would say "Hi", then do its happy bounce while saying "I am a
+robot!"
+
+For clarification, these flags would only change the attributes of a particular
+action within the `DO` string. So flagging an action as "blocking" and
+"non-blocking" flags would only change that particular action. As stated
+earlier, if you want to interrupt and replace the currently running behavior on
+the robot with your new command, you can use the `interrupt` field to indicate
+this.
+
+Note that this package does not track whether actions or flags you provide in a
 message string are recognizable by any specific robot platform. For lists of
-available actions or flags, please consult ther specifications for your
-specific robot platform or project.
+available actions or flags, please consult their specifications for your
+specific robot platform or project. E.g., you would need to check your specific
+robot platform or project's specifications regarding what flag to provide for
+"blocking" vs. "non-blocking" actions.
 
 ## RobotState
 
