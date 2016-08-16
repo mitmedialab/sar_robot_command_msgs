@@ -49,7 +49,7 @@ embedded in the string in angle brackets. Here is an example:
 The following message string would instruct a robot to say "Hi I am a robot!",
 to smile after saying "Hi", and to wave at the end of the sentence:
 
-`"Hi <smile> I am a robot! <wave>"`
+`"Hi [child-name] <smile> I am a robot! <wave>"`
 
 A message string can contain only speech or only actions, e.g.:
 
@@ -76,7 +76,7 @@ then the robot would say "Hi", do a happy bounce, then say "I am a robot!".
 
 If you tagged the action as non-blocking, e.g., 
 
-`"Hi <happy bounce, nb> I am a robot!"`
+`"Hi [child-name] <happy bounce, nb> I am a robot!"`
 
 then the robot would say "Hi", then do its happy bounce while saying "I am a
 robot!"
@@ -94,6 +94,20 @@ available actions or flags, please consult their specifications for your
 specific robot platform or project. E.g., you would need to check your specific
 robot platform or project's specifications regarding what flag to provide for
 "blocking" vs. "non-blocking" actions.
+
+### Name tags
+
+To include names of the child and caretaker in speech the robot uses, we'll use
+a different tag with brackets: 
+
+`"Hi [child-name] <smile> I am a robot! <wave>"`
+
+The current name options are: 
+
+- `child-name` : the name of the child with ASD, the primary user of the robot
+
+- `guardian-name` : the name of the child's caretaker, who will play ceratin
+games with child (like the rocket-barrier game)
 
 ## RobotState
 
