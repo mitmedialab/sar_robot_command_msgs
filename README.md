@@ -23,7 +23,7 @@ to monitor this field and interrupt or replace any command that was already
 running on the robot.
 
 A list of constants is included for the different commands that can be sent to
-a robot. These are: 
+a robot. These are:
 
 - 0 SLEEP
     - no properties (properties = empty string)
@@ -42,12 +42,14 @@ a robot. These are:
 
 `DO` commands should be formatted as a string of text containing the words that
 the robot should say, with any actions the robot should be instructed to do
-embedded in the string in angle brackets. Here is an example:
+embedded in the string in angle brackets. Names of specific interaction
+partners can be included in square brackets. Here is an example:
 
-`"Speech to say <action> more speech <action>"`
+`"Speech to say to [interaction-partner] <action> more speech <action>"`
 
-The following message string would instruct a robot to say "Hi I am a robot!",
-to smile after saying "Hi", and to wave at the end of the sentence:
+The following message string would instruct a robot to say "Hi (name of child)
+I am a robot!", to smile after saying "Hi (name of child)", and to wave at the
+end of the sentence:
 
 `"Hi [child-name] <smile> I am a robot! <wave>"`
 
@@ -68,18 +70,18 @@ The action commands may contain additional optional flags, e.g.:
 One use of these flags would be to indicate that specific robot animations or
 actions, such as a "smile" or a "happy bounce", should be blocking or
 non-blocking. For example, given the `DO` command `"Hi <happy bounce> I am a
-robot!"`, if you tagged the action command as blocking, e.g., 
+robot!"`, if you tagged the action command as blocking, e.g.,
 
 `"Hi <happy bounce,b> I am a robot!"`
 
 then the robot would say "Hi", do a happy bounce, then say "I am a robot!".
 
-If you tagged the action as non-blocking, e.g., 
+If you tagged the action as non-blocking, e.g.,
 
 `"Hi [child-name] <happy bounce, nb> I am a robot!"`
 
-then the robot would say "Hi", then do its happy bounce while saying "I am a
-robot!"
+then the robot would say "Hi (name of child)", then do its happy bounce while
+saying "I am a robot!"
 
 For clarification, these flags would only change the attributes of a particular
 action within the `DO` string. So flagging an action as "blocking" and
@@ -95,19 +97,24 @@ specific robot platform or project. E.g., you would need to check your specific
 robot platform or project's specifications regarding what flag to provide for
 "blocking" vs. "non-blocking" actions.
 
-### Name tags
+#### Name tags
 
-To include names of the child and caretaker in speech the robot uses, we'll use
-a different tag with brackets: 
+Several pre-defined interaction partners can be referenced in `DO` command
+strings using a name tag in square brackets, like so:
 
 `"Hi [child-name] <smile> I am a robot! <wave>"`
 
-The current name options are: 
+Name tags available include:
 
-- `child-name` : the name of the child with ASD, the primary user of the robot
+- `child-name`: The name of the child who is the primary user of the robot.
 
-- `guardian-name` : the name of the child's caretaker, who will play ceratin
-games with child (like the rocket-barrier game)
+- `guardian-name`: The name of the child's caretaker, who may play with the
+  robot with the child.
+
+That said, this package does not track whether name tags you provide in a
+message string are recognizable by any specific robot platform. Please consult
+the specifications for your specific robot platform or project to get a
+complete list of what is supported for your robot or project.
 
 ## RobotState
 
@@ -115,11 +122,10 @@ The RobotState message definition includes several flags that can be sent back
 by a robot. These flags give status information about the robot's current
 activities.
 
-- doing action
-    - True when the robot is currently performing an animation or behavior
+- `doing action`: True when the robot is currently performing an animation or
+  behavior.
 
-- is playing sound
-    - True when the robot is currently playing back sound
+- `is playing sound`: True when the robot is currently playing back sound.
 
 TODO: Define additional status flags that may be useful.
 
